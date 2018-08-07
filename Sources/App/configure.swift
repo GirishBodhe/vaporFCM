@@ -1,8 +1,23 @@
 import FluentSQLite
 import Vapor
+import FCM
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
+    
+    let fcm = FCM(pathToServiceAccountKey: "mhi-test-58b3b-firebase-adminsdk-l6kcq-7df896fcbe.json")
+    
+    fcm.apnsDefaultConfig = FCMApnsConfig(headers: [:],
+                                          aps: FCMApnsApsObject(sound: "default"))
+    fcm.androidDefaultConfig = FCMAndroidConfig(ttl: "86400s",
+                                                restricted_package_name: "com.example.myapp",
+                                                notification: FCMAndroidNotification(sound: "default"))
+    fcm.webpushDefaultConfig = FCMWebpushConfig(headers: [:],
+                                                data: [:],
+                                                notification: [:])
+    
+    services.register(fcm, as: FCM.self)
+    
     /// Register providers first
     try services.register(FluentSQLiteProvider())
 
