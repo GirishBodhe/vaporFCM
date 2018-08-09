@@ -13,11 +13,13 @@ public func routes(_ router: Router) throws {
         return "Hello, world!"
     }
     
-    router.get("testfcm") { req -> Future<String> in
+    router.get("/testfcm") { req -> Future<String> in
         let fcm = try req.make(FCM.self)
-        let token = "token"
+//        let token = "token"
+        let topic = "newHotel"
         let notification = FCMNotification(title: "Vapor is awesome!", body: "Swift one love! ❤️")
-        let message = FCMMessage(token: token, notification: notification)
+        let message = FCMMessage(topic: topic, notification: notification)
+//        let message = FCMMessage(token: token, notification: notification)
         return try fcm.sendMessage(req.client(), message: message)
     }
     
