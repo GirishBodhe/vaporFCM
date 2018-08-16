@@ -1,23 +1,59 @@
 import Vapor
+import FluentSQLite
+import FCM
 
-/// Controlers basic CRUD operations on `Todo`s.
+
+/// Simple todo-list controller.
 final class TodoController {
-    /// Returns a list of all `Todo`s.
+    
+   
+    /// Returns a list of all todos for the auth'd user.
     func index(_ req: Request) throws -> Future<[Todo]> {
-        return Todo.query(on: req).all()
+        // fetch auth'd user
+        let user = try req.requireAuthenticated(User.self)
+        
+        // query all todo's belonging to user
+        return try Todo.query(on: req)
+            .filter(\.userID == user.requireID()).all()
     }
+    
+   
 
-    /// Saves a decoded `Todo` to the database.
+    /// Creates a new todo for the auth'd user.
     func create(_ req: Request) throws -> Future<Todo> {
-        return try req.content.decode(Todo.self).flatMap { todo in
-            return todo.save(on: req)
+        // fetch auth'd user
+        let user = try req.requireAuthenticated(User.self)
+        
+        // decode request content
+        return try req.content.decode(CreateTodoRequest.self).flatMap { todo in
+            // save new todo
+            return try Todo(title: todo.title, userID: user.requireID())
+                .save(on: req)
         }
     }
 
-    /// Deletes a parameterized `Todo`.
+    /// Deletes an existing todo for the auth'd user.
     func delete(_ req: Request) throws -> Future<HTTPStatus> {
-        return try req.parameters.next(Todo.self).flatMap { todo in
+        // fetch auth'd user
+        let user = try req.requireAuthenticated(User.self)
+        
+        // decode request parameter (todos/:id)
+        return try req.parameters.next(Todo.self).flatMap { todo -> Future<Void> in
+            // ensure the todo being deleted belongs to this user
+            guard try todo.userID == user.requireID() else {
+                throw Abort(.forbidden)
+            }
+            
+            // delete model
             return todo.delete(on: req)
         }.transform(to: .ok)
     }
+}
+
+// MARK: Content
+
+/// Represents data required to create a new todo.
+struct CreateTodoRequest: Content {
+    /// Todo title.
+    var title: String
 }
