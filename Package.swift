@@ -13,10 +13,11 @@ let package = Package(
         .package(url: "https://github.com/MihaelIsaev/FCM.git", from: "0.5.0"),
         // 👤 Authentication and Authorization layer for Fluent.
         .package(url: "https://github.com/vapor/auth.git", from: "2.0.0"),
+        .package(url: "https://github.com/vapor/crypto.git", from : "3.0.0")
         
         ],
     targets: [
-        .target(name: "App", dependencies: ["Vapor","FCM","FluentSQLite" ,"Authentication"]),
+        .target(name: "App", dependencies: ["Vapor","FCM","FluentSQLite" ,"Authentication","Crypto"]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
