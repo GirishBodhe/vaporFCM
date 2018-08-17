@@ -2,10 +2,18 @@ import Vapor
 import FCM
 import Crypto
 
+
 /// Register your application's routes here.
 
 
 public func routes(_ router: Router) throws {
+//    let fcm = FCM.init(pathToServiceAccountKey: "SERVER_KEY")
+//
+////    # Simple fcm push
+//
+//    fcm.push(text: "poutou poutou poutooooouuuuuu", to: "token") //
+//
+//
     // public routes
     let userController = UserController()
     let fcmController = FCMController()
@@ -33,6 +41,8 @@ public func routes(_ router: Router) throws {
     router.get("/") { req in
         
         return "Hello, Girish!"
+        
+        
     }
     
     router.get("/hello") { req in

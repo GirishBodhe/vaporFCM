@@ -10,15 +10,15 @@ let package = Package(
 //        // 🔵 Swift ORM (queries, models, relations, etc) built on SQLite 3.
         .package(url: "https://github.com/vapor/fluent-sqlite.git", from: "3.0.0-rc.2"),
 
-        .package(url: "https://github.com/MihaelIsaev/FCM.git", from: "0.5.0"),
+//        .package(url: "https://github.com/MihaelIsaev/FCM.git", from: "0.5.0"),
 
-        
+//        .package(url: "https://github.com/favret/PoutouPush.git", from: "0.0.5")
         // 👤 Authentication and Authorization layer for Fluent.
 //        .package(url: "https://github.com/vapor/auth.git", from: "2.0.0"),
         
         ],
     targets: [
-        .target(name: "App", dependencies: ["Vapor","FCM","FluentSQLite" /*,"Authentication","Crypto"*/]),
+        .target(name: "App", dependencies: ["Vapor","FluentSQLite" /*,"PoutouPush","Authentication","Crypto","FCM",*/]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
