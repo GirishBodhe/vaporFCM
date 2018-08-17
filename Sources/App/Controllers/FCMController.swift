@@ -18,14 +18,14 @@ final class FCMController {
     func send(_ req: Request) throws -> Future<String> {
         
         
-        let user = try req.requireAuthenticated(User.self)
+        _ = try req.requireAuthenticated(User.self)
         
         
         // decode request content
         return try req.content.decode(MessageRequest.self).flatMap { fmassage in
             // save new todo
-        
-            try FCMData(topic:fmassage.topic, title: fmassage.title, body: fmassage.body, userID: user.requireID()).save(on: req)
+//
+//            try FCMData(topic:fmassage.topic, title: fmassage.title, body: fmassage.body, userID: user.requireID()).save(on: req)
         
         let fcm = try req.make(FCM.self)
         //        let token = "token"
