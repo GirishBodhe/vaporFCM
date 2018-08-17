@@ -14,11 +14,11 @@ let package = Package(
 
 //        .package(url: "https://github.com/favret/PoutouPush.git", from: "0.0.5")
         // 👤 Authentication and Authorization layer for Fluent.
-        .package(url: "https://github.com/vapor/auth.git", from: "2.0.0"),
+//        .package(url: "https://github.com/vapor/auth.git", from: "2.0.0"),
         
         ],
     targets: [
-        .target(name: "App", dependencies: ["Vapor","FluentSQLite","Authentication" /*,"PoutouPush","Crypto","FCM",*/]),
+        .target(name: "App", dependencies: ["Vapor","FluentSQLite"/*,"Authentication" ,"PoutouPush","Crypto","FCM",*/]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
