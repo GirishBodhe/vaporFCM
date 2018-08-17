@@ -38,18 +38,18 @@ public func routes(_ router: Router) throws {
 //        var body: String
 //    }
 //    
-    router.get("/") { req in
-        
-        return "Hello, Girish!"
-        
-        
-    }
-    
-    router.get("/hello") { req in
-        return "Hello, world!"
-    }
-    
-    
+//    router.get("/") { req in
+//
+//        return "Hello, Girish!"
+//
+//
+//    }
+//
+//    router.get("/hello") { req in
+//        return "Hello, world!"
+//    }
+//
+//
     
 //    basic.post("/postNotification") { req -> Future<HTTPStatus> in
 //        return try req.content.decode(MessageRequest.self).map(to: HTTPStatus.self) { messageRequest in
