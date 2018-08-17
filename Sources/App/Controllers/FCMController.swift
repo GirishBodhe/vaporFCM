@@ -18,7 +18,7 @@ final class FCMController {
     func send(_ req: Request) throws -> Future<String> {
         
         
-        _ = try req.requireAuthenticated(User.self)
+//        _ = try req.requireAuthenticated(User.self)
         
         
         // decode request content
